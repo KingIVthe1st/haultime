@@ -21,6 +21,7 @@
             --accent: #FF6B35;
             --accent-hover: #FF8555;
             --accent-dark: #E55A25;
+            --accent-text: #D94A18;
             --white: #FFFFFF;
             --off-white: #F0F4F8;
             --gray-100: #E8EDF2;
@@ -366,7 +367,7 @@
         .section { padding: 100px 0; }
         .section-label {
             display: inline-flex; align-items: center; gap: 10px;
-            color: var(--primary); font-size: 0.8rem;
+            color: var(--accent-text); font-size: 0.8rem;
             font-weight: 700; letter-spacing: 3px;
             text-transform: uppercase; margin-bottom: 16px;
         }
@@ -758,27 +759,7 @@
             box-shadow: 0 14px 40px rgba(0,0,0,0.2);
         }
 
-        /* ============================================
-           GALLERY STRIP
-           ============================================ */
-        .gallery-strip {
-            padding: 80px 0 100px;
-            background: var(--off-white);
-            overflow: hidden;
-        }
-        .gallery-marquee {
-            display: flex; gap: 20px;
-            animation: marquee 30s linear infinite;
-        }
-        .gallery-marquee img {
-            width: 320px; height: 220px;
-            object-fit: cover; border-radius: var(--radius-md);
-            flex-shrink: 0;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+        /* Gallery strip removed — no HTML present */
 
         /* ============================================
            CONTACT / FOOTER
@@ -925,6 +906,38 @@
             .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
             .areas-list { grid-template-columns: 1fr; }
         }
+
+        /* ============================================
+           FOCUS STATES & ACCESSIBILITY
+           ============================================ */
+        *:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+        .btn-primary:focus-visible, .btn-secondary:focus-visible, .btn-nav:focus-visible, .btn-white:focus-visible {
+            outline: 3px solid var(--white);
+            outline-offset: 3px;
+            box-shadow: 0 0 0 6px rgba(255, 107, 53, 0.4);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .hero-canvas { display: none; }
+            .reveal { opacity: 1 !important; transform: none !important; }
+        }
+
+        /* Service card images */
+        .service-card-img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .service-card:hover .service-card-img { transform: scale(1.08); }
 
         /* ============================================
            NOISE TEXTURE OVERLAY
@@ -1080,7 +1093,7 @@
             </div>
             <div class="services-grid">
                 <div class="service-card reveal reveal-delay-1">
-                    <div class="service-card-bg" style="background-image: url('images/clean_modern_residential_home_ex.png'); background-color: var(--navy);"></div>
+                    <img src="images/clean_modern_residential_home_ex.png" alt="Residential junk removal - furniture and items ready for pickup outside a home" class="service-card-img" loading="lazy">
                     <div class="service-card-overlay"></div>
                     <div class="service-card-content">
                         <div class="service-card-icon">
@@ -1095,7 +1108,7 @@
                     </div>
                 </div>
                 <div class="service-card reveal reveal-delay-2">
-                    <div class="service-card-bg" style="background-image: url('images/commercial_office_building_inter.png'); background-color: var(--navy);"></div>
+                    <img src="images/commercial_office_building_inter.png" alt="Commercial office cleanout with professional junk removal team" class="service-card-img" loading="lazy">
                     <div class="service-card-overlay"></div>
                     <div class="service-card-content">
                         <div class="service-card-icon">
@@ -1110,7 +1123,7 @@
                     </div>
                 </div>
                 <div class="service-card reveal reveal-delay-3">
-                    <div class="service-card-bg" style="background-image: url('images/old_washing_machine_refrigerator.png'); background-color: var(--navy);"></div>
+                    <img src="images/old_washing_machine_refrigerator.png" alt="Appliance removal - old refrigerator and washing machine ready for hauling" class="service-card-img" loading="lazy">
                     <div class="service-card-overlay"></div>
                     <div class="service-card-content">
                         <div class="service-card-icon">
@@ -1125,7 +1138,7 @@
                     </div>
                 </div>
                 <div class="service-card reveal reveal-delay-1">
-                    <div class="service-card-bg" style="background-image: url('images/large_blue_junk_removal_truck_pa.png'); background-color: var(--navy);"></div>
+                    <img src="images/large_blue_junk_removal_truck_pa.png" alt="Haul Time junk removal truck ready for property cleanout" class="service-card-img" loading="lazy">
                     <div class="service-card-overlay"></div>
                     <div class="service-card-content">
                         <div class="service-card-icon">
@@ -1140,7 +1153,7 @@
                     </div>
                 </div>
                 <div class="service-card reveal reveal-delay-2">
-                    <div class="service-card-bg" style="background-image: url('images/ecofriendly_recycling_and_green_.png'); background-color: var(--navy);"></div>
+                    <img src="images/ecofriendly_recycling_and_green_.png" alt="Eco-friendly recycling and responsible junk disposal" class="service-card-img" loading="lazy">
                     <div class="service-card-overlay"></div>
                     <div class="service-card-content">
                         <div class="service-card-icon">
@@ -1155,7 +1168,7 @@
                     </div>
                 </div>
                 <div class="service-card reveal reveal-delay-3">
-                    <div class="service-card-bg" style="background-image: url('images/commercial_office_building_inter.png'); background-color: var(--navy);"></div>
+                    <img src="images/neatly_stacked_cardboard_boxes_a.png" alt="Donation pickup - boxes and household items being donated to charity" class="service-card-img" loading="lazy">
                     <div class="service-card-overlay"></div>
                     <div class="service-card-content">
                         <div class="service-card-icon">
@@ -1455,7 +1468,7 @@
         <div class="cta-bg-shape cta-bg-shape-1"></div>
         <div class="cta-bg-shape cta-bg-shape-2"></div>
         <div class="container">
-            <div class="cta-inner reveal">
+            <div class="cta-inner">
                 <h2>READY TO RECLAIM<br>YOUR SPACE?</h2>
                 <p>Get your free, no-obligation quote today. Call us or click below — we'll take it from here.</p>
                 <a href="tel:8885759390" class="btn-white">
@@ -1534,9 +1547,7 @@
         // PRELOADER
         // ============================================
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('preloader').classList.add('hidden');
-            }, 1200);
+            document.getElementById('preloader').classList.add('hidden');
         });
 
         // ============================================
@@ -1603,13 +1614,27 @@
                 }
             }
 
+            let animationId;
+            let isHeroVisible = true;
+
             function animate() {
+                if (!isHeroVisible) return;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 particles.forEach(p => { p.update(); p.draw(); });
                 connectParticles();
-                requestAnimationFrame(animate);
+                animationId = requestAnimationFrame(animate);
             }
             animate();
+
+            // Pause canvas when hero is off-screen to save CPU/battery
+            const heroEl = document.getElementById('hero');
+            const canvasObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    isHeroVisible = entry.isIntersecting;
+                    if (isHeroVisible && !animationId) animate();
+                });
+            }, { threshold: 0 });
+            canvasObserver.observe(heroEl);
 
             canvas.addEventListener('mousemove', e => {
                 mouse.x = e.x; mouse.y = e.y;
@@ -1649,7 +1674,7 @@
                     entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        }, { threshold: 0.02, rootMargin: '0px 0px 0px 0px' });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
@@ -1731,6 +1756,20 @@
                 currentSlide = Math.min(currentSlide, getMaxSlide());
                 updateSlider();
             });
+
+            // Touch swipe support
+            let touchStartX = 0;
+            let touchEndX = 0;
+            track.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+            track.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) { currentSlide = Math.min(getMaxSlide(), currentSlide + 1); }
+                    else { currentSlide = Math.max(0, currentSlide - 1); }
+                    updateSlider();
+                }
+            }, { passive: true });
         })();
 
         // ============================================
