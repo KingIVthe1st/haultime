@@ -134,7 +134,7 @@
         }
         .nav-phone svg { width: 18px; height: 18px; fill: var(--accent); }
         .btn-nav {
-            background: var(--accent); color: var(--white);
+            background: var(--accent-dark); color: var(--white);
             padding: 12px 28px; border-radius: 50px;
             font-weight: 700; font-size: 0.85rem;
             letter-spacing: 1px; text-transform: uppercase;
@@ -152,6 +152,7 @@
         .nav-toggle {
             display: none; flex-direction: column; gap: 5px;
             cursor: pointer; padding: 8px; z-index: 1001;
+            background: none; border: none;
         }
         .nav-toggle span {
             width: 28px; height: 2.5px; background: var(--white);
@@ -240,7 +241,7 @@
         }
         .btn-primary {
             display: inline-flex; align-items: center; gap: 10px;
-            background: var(--accent); color: var(--white);
+            background: var(--accent-dark); color: var(--white);
             padding: 18px 40px; border-radius: 50px;
             font-weight: 700; font-size: 0.95rem;
             letter-spacing: 1px; text-transform: uppercase;
@@ -248,7 +249,7 @@
             box-shadow: 0 8px 30px rgba(255, 107, 53, 0.4);
         }
         .btn-primary:hover {
-            background: var(--accent-hover);
+            background: var(--accent);
             transform: translateY(-3px);
             box-shadow: 0 12px 40px rgba(255, 107, 53, 0.5);
         }
@@ -652,6 +653,14 @@
             position: absolute; width: 10px; height: 10px;
             border-radius: 50%; background: var(--accent);
             box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+            animation: areaPulse 2.5s ease-in-out infinite;
+        }
+        .areas-dot:nth-child(5) { animation-delay: 0.5s; }
+        .areas-dot:nth-child(6) { animation-delay: 1s; }
+        .areas-dot:nth-child(7) { animation-delay: 1.5s; }
+        @keyframes areaPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.6); opacity: 0.6; }
         }
 
         /* ============================================
@@ -984,9 +993,9 @@
                 </a>
                 <a href="#contact" class="btn-nav">Free Quote</a>
             </div>
-            <div class="nav-toggle" id="navToggle">
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
                 <span></span><span></span><span></span>
-            </div>
+            </button>
         </div>
     </nav>
 
@@ -1541,6 +1550,59 @@
         </div>
     </footer>
 
+    <!-- Quote Modal -->
+    <div class="modal-overlay" id="quoteModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal">
+            <button class="modal-close" id="modalClose" aria-label="Close quote form">&times;</button>
+            <h3 id="modalTitle" style="font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 2px; color: var(--navy); margin-bottom: 6px;">GET YOUR FREE QUOTE</h3>
+            <p style="color: var(--gray-600); font-size: 0.9rem; margin-bottom: 28px;">Fill out the form below and we'll get back to you within the hour.</p>
+            <form id="quoteForm" onsubmit="return false;" style="display: flex; flex-direction: column; gap: 14px;">
+                <input type="text" placeholder="Your Name" required style="padding: 14px 18px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.9rem; outline: none; transition: var(--transition);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--gray-200)'">
+                <input type="tel" placeholder="Phone Number" required style="padding: 14px 18px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.9rem; outline: none; transition: var(--transition);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--gray-200)'">
+                <input type="email" placeholder="Email Address" style="padding: 14px 18px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.9rem; outline: none; transition: var(--transition);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--gray-200)'">
+                <select style="padding: 14px 18px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.9rem; color: var(--gray-600); outline: none; background: var(--white);">
+                    <option value="">Select Service Type</option>
+                    <option>Residential Removal</option>
+                    <option>Commercial Cleanout</option>
+                    <option>Appliance Removal</option>
+                    <option>Property Cleanout</option>
+                    <option>Yard Waste &amp; Debris</option>
+                    <option>Donation Pickup</option>
+                </select>
+                <textarea placeholder="Tell us about your project..." rows="3" style="padding: 14px 18px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.9rem; outline: none; resize: vertical; transition: var(--transition);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--gray-200)'"></textarea>
+                <button type="submit" class="btn-primary" style="justify-content: center; margin-top: 4px;">Request Free Quote</button>
+            </form>
+            <p style="text-align: center; margin-top: 16px; font-size: 0.8rem; color: var(--gray-300);">Or call us directly: <a href="tel:8885759390" style="color: var(--accent-dark); font-weight: 700;">(888) 575-9390</a></p>
+        </div>
+    </div>
+
+    <style>
+        .modal-overlay {
+            position: fixed; inset: 0; z-index: 10000;
+            background: rgba(13, 27, 42, 0.7); backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            padding: 24px;
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: var(--transition);
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; pointer-events: all; }
+        .modal {
+            background: var(--white); border-radius: var(--radius-xl);
+            padding: 44px; max-width: 480px; width: 100%;
+            box-shadow: var(--shadow-xl); position: relative;
+            transform: translateY(20px) scale(0.97);
+            transition: var(--transition);
+        }
+        .modal-overlay.active .modal { transform: translateY(0) scale(1); }
+        .modal-close {
+            position: absolute; top: 16px; right: 20px;
+            background: none; border: none; font-size: 2rem;
+            color: var(--gray-300); cursor: pointer;
+            transition: var(--transition); line-height: 1;
+        }
+        .modal-close:hover { color: var(--navy); transform: rotate(90deg); }
+    </style>
+
     <!-- JavaScript -->
     <script>
         // ============================================
@@ -1557,7 +1619,6 @@
             const canvas = document.getElementById('heroCanvas');
             const ctx = canvas.getContext('2d');
             let particles = [];
-            let mouse = { x: null, y: null };
             const particleCount = 80;
 
             function resize() {
@@ -1636,9 +1697,7 @@
             }, { threshold: 0 });
             canvasObserver.observe(heroEl);
 
-            canvas.addEventListener('mousemove', e => {
-                mouse.x = e.x; mouse.y = e.y;
-            });
+            // Mouse interactivity removed — unused
         })();
 
         // ============================================
@@ -1655,8 +1714,9 @@
         const navToggle = document.getElementById('navToggle');
         const navLinks = document.getElementById('navLinks');
         navToggle.addEventListener('click', () => {
-            navToggle.classList.toggle('active');
+            const isOpen = navToggle.classList.toggle('active');
             navLinks.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', isOpen);
         });
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
@@ -1785,6 +1845,54 @@
                 }
             }, { passive: true });
         })();
+
+        // ============================================
+        // QUOTE MODAL
+        // ============================================
+        const quoteModal = document.getElementById('quoteModal');
+        const modalClose = document.getElementById('modalClose');
+
+        document.querySelectorAll('.btn-nav, [href="#contact"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                if (btn.classList.contains('btn-nav') || btn.getAttribute('href') === '#contact') {
+                    e.preventDefault();
+                    quoteModal.classList.add('active');
+                }
+            });
+        });
+        modalClose.addEventListener('click', () => quoteModal.classList.remove('active'));
+        quoteModal.addEventListener('click', (e) => {
+            if (e.target === quoteModal) quoteModal.classList.remove('active');
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') quoteModal.classList.remove('active');
+        });
+        document.getElementById('quoteForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const modal = quoteModal.querySelector('.modal');
+            while (modal.firstChild) modal.removeChild(modal.firstChild);
+            const icon = document.createElement('div');
+            icon.style.cssText = 'text-align:center;padding:40px 0;';
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '64');
+            svg.setAttribute('height', '64');
+            svg.setAttribute('viewBox', '0 0 24 24');
+            svg.setAttribute('fill', '#48BB78');
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('d', 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z');
+            svg.appendChild(path);
+            icon.appendChild(svg);
+            const h3 = document.createElement('h3');
+            h3.style.cssText = 'font-family:var(--font-display);font-size:1.6rem;letter-spacing:2px;color:var(--navy);margin-top:16px;';
+            h3.textContent = 'QUOTE REQUESTED!';
+            icon.appendChild(h3);
+            const p = document.createElement('p');
+            p.style.cssText = 'color:var(--gray-600);margin-top:8px;';
+            p.textContent = "We'll call you back within the hour.";
+            icon.appendChild(p);
+            modal.appendChild(icon);
+            setTimeout(() => { quoteModal.classList.remove('active'); }, 3000);
+        });
 
         // ============================================
         // SMOOTH SCROLL
