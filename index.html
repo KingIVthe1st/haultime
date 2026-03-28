@@ -1674,9 +1674,23 @@
                     entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.02, rootMargin: '0px 0px 0px 0px' });
+        }, { threshold: 0, rootMargin: '0px 0px 200px 0px' });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Fallback: ensure all reveals trigger after scrolling
+        let revealTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(revealTimeout);
+            revealTimeout = setTimeout(() => {
+                document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight + 100) {
+                        el.classList.add('visible');
+                    }
+                });
+            }, 100);
+        });
 
         // ============================================
         // ANIMATED COUNTERS
