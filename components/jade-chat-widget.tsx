@@ -5,6 +5,8 @@ import { siteConfig } from "@/lib/site";
 
 type ChatMessage = { role: "assistant" | "user"; content: string };
 
+const quickPrompts = ["Same-day quote", "Office cleanout", "Can I send photos?"];
+
 export function JadeChatWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -20,10 +22,10 @@ export function JadeChatWidget() {
     return `session-${Date.now()}`;
   }, []);
 
-  async function sendMessage() {
-    if (!input.trim() || loading) return;
+  async function sendPayload(content: string) {
+    if (!content.trim() || loading) return;
 
-    const nextMessages = [...messages, { role: "user" as const, content: input.trim() }];
+    const nextMessages = [...messages, { role: "user" as const, content: content.trim() }];
     setMessages(nextMessages);
     setInput("");
     setLoading(true);
@@ -46,6 +48,10 @@ export function JadeChatWidget() {
     setLoading(false);
   }
 
+  async function sendMessage() {
+    await sendPayload(input);
+  }
+
   return (
     <>
       <button className="chat-launcher" onClick={() => setOpen((current) => !current)}>
@@ -58,8 +64,17 @@ export function JadeChatWidget() {
             <div>
               <p className="eyebrow">Lead concierge</p>
               <h3>Chat with Jade</h3>
+              <p className="chat-subcopy">Fast answers, cleaner quotes, premium routing.</p>
             </div>
             <span className="chat-badge">Secure website mode</span>
+          </div>
+
+          <div className="chat-quick-row">
+            {quickPrompts.map((prompt) => (
+              <button key={prompt} type="button" className="chat-quick-pill" onClick={() => sendPayload(prompt)} disabled={loading}>
+                {prompt}
+              </button>
+            ))}
           </div>
 
           <div className="chat-thread">

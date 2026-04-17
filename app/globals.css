@@ -17,6 +17,7 @@
   --danger: #c75042;
   --shadow-xl: 0 40px 120px rgba(6, 17, 31, 0.18);
   --shadow-lg: 0 24px 60px rgba(8, 20, 38, 0.14);
+  --shadow-md: 0 18px 38px rgba(9, 21, 38, 0.1);
   --radius-xl: 32px;
   --radius-lg: 24px;
   --radius-md: 18px;
@@ -63,9 +64,24 @@ select {
   overflow-x: clip;
 }
 
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  z-index: 1;
+  background-image:
+    radial-gradient(circle at 20% 20%, #000 0.7px, transparent 0.8px),
+    radial-gradient(circle at 80% 40%, #000 0.7px, transparent 0.8px),
+    radial-gradient(circle at 60% 80%, #000 0.7px, transparent 0.8px);
+  background-size: 30px 30px, 46px 46px, 52px 52px;
+}
+
 .container {
   width: var(--container);
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .site-header {
@@ -148,6 +164,8 @@ blockquote p,
 .secondary-button,
 .pill,
 .chat-launcher {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -156,7 +174,22 @@ blockquote p,
   padding: 14px 22px;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+  transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease, color 220ms ease, border-color 220ms ease;
+}
+
+.primary-button::before,
+.chat-launcher::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.32) 50%, transparent 100%);
+  transform: translateX(-120%);
+  transition: transform 550ms ease;
+}
+
+.primary-button:hover::before,
+.chat-launcher:hover::before {
+  transform: translateX(120%);
 }
 
 .primary-button,
@@ -201,14 +234,14 @@ blockquote p,
 
 .hero-section {
   padding-top: 74px;
-  padding-bottom: 80px;
+  padding-bottom: 72px;
 }
 
 .hero-ambient {
   position: absolute;
   border-radius: 999px;
   filter: blur(60px);
-  opacity: 0.8;
+  opacity: 0.78;
   pointer-events: none;
 }
 
@@ -228,20 +261,40 @@ blockquote p,
   background: rgba(216, 154, 99, 0.16);
 }
 
+.hero-ambient-center {
+  width: 320px;
+  height: 320px;
+  left: 45%;
+  top: 180px;
+  background: rgba(117, 154, 189, 0.1);
+}
+
 .premium-hero-grid,
+.signature-grid,
 .editorial-grid,
 .services-premium-grid,
 .concierge-grid,
 .quote-premium-grid,
 .faq-premium-grid,
-.trust-metric-grid {
+.trust-metric-grid,
+.concierge-process-grid {
   display: grid;
   gap: 28px;
 }
 
-.premium-hero-grid {
+.premium-hero-grid,
+.services-premium-grid,
+.quote-premium-grid {
   grid-template-columns: 1.02fr 0.98fr;
   align-items: center;
+}
+
+.signature-grid,
+.editorial-grid,
+.faq-premium-grid,
+.concierge-grid {
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: start;
 }
 
 .hero-copy-column {
@@ -280,8 +333,8 @@ blockquote p,
 }
 
 .editorial-title {
-  max-width: 11ch;
-  font-size: clamp(3.6rem, 8vw, 7rem);
+  max-width: 10.6ch;
+  font-size: clamp(3.6rem, 8vw, 6.9rem);
 }
 
 .section-title-xl {
@@ -300,7 +353,8 @@ blockquote p,
 .rule-card span,
 .showcase-caption span,
 .hero-stat-card span,
-.trust-metric span {
+.trust-metric span,
+.signature-card p {
   color: var(--ink-soft);
   line-height: 1.75;
 }
@@ -345,6 +399,7 @@ blockquote p,
 
 .glass-card,
 .solid-panel,
+.signature-card,
 .mosaic-card,
 .luxury-service-card,
 .process-step-card,
@@ -354,20 +409,41 @@ blockquote p,
 .chat-panel,
 .showcase-caption,
 .editorial-aside-card,
-.side-note {
+.side-note,
+.portrait-card {
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
 }
 
 .glass-card,
 .editorial-aside-card,
+.signature-card,
 .process-step-card,
 .rule-card,
 .side-note,
-.showcase-caption {
+.showcase-caption,
+.portrait-card {
   background: rgba(255, 255, 255, 0.68);
   backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.hover-float-card {
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.hover-float-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 56px rgba(8, 20, 38, 0.16);
+}
+
+.image-hover-frame {
+  transition: transform 340ms ease, box-shadow 340ms ease;
+}
+
+.image-hover-frame:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 34px 72px rgba(6, 17, 31, 0.2);
 }
 
 .hero-stat-card {
@@ -396,16 +472,23 @@ blockquote p,
   background: #dce6ef;
 }
 
-.hero-main-image {
+.hero-main-image,
+.mosaic-image,
+.showcase-image,
+.concierge-portrait {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+.hero-main-image {
+  transform: scale(1.01);
+}
+
 .hero-image-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(8, 20, 38, 0.05) 0%, rgba(8, 20, 38, 0.28) 100%);
+  background: linear-gradient(180deg, rgba(8, 20, 38, 0.05) 0%, rgba(8, 20, 38, 0.3) 100%);
 }
 
 .floating-panel {
@@ -442,7 +525,9 @@ blockquote p,
 .bottom-panel strong,
 .showcase-caption strong,
 .side-note strong,
-.rule-card strong {
+.rule-card strong,
+.portrait-card strong,
+.signature-card h3 {
   display: block;
   font-size: 1.05rem;
   line-height: 1.4;
@@ -467,6 +552,32 @@ blockquote p,
   font-size: 0.88rem;
 }
 
+.luxury-rail-wrap {
+  margin-top: 28px;
+}
+
+.luxury-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 18px 20px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(17, 37, 59, 0.08);
+  box-shadow: var(--shadow-md);
+}
+
+.luxury-rail span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(17, 37, 59, 0.05);
+  color: var(--navy);
+  font-size: 0.9rem;
+}
+
 .trust-marquee-section {
   padding: 16px 0 0;
 }
@@ -485,11 +596,26 @@ blockquote p,
   gap: 6px;
 }
 
-.editorial-grid,
-.faq-premium-grid {
-  grid-template-columns: 1.15fr 0.85fr;
-  align-items: start;
-  margin-bottom: 30px;
+.signature-card-stack,
+.quote-side-notes,
+.premium-faq-list,
+.concierge-rules-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.signature-card-stack,
+.concierge-rules-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.signature-card,
+.editorial-aside-card,
+.rule-card,
+.side-note,
+.showcase-caption,
+.portrait-card {
+  padding: 24px;
 }
 
 .editorial-aside-card {
@@ -533,7 +659,8 @@ blockquote p,
 .luxury-service-card p,
 .process-step-card p,
 .faq-item p,
-.testimonial-luxury-card p {
+.testimonial-luxury-card p,
+.signature-card p {
   margin: 0;
 }
 
@@ -551,24 +678,8 @@ blockquote p,
   border: 1px solid rgba(17, 37, 59, 0.08);
 }
 
-.mosaic-image,
-.showcase-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.services-premium-grid,
-.quote-premium-grid {
-  grid-template-columns: 0.95fr 1.05fr;
-  align-items: center;
-}
-
-.services-showcase {
-  position: relative;
-}
-
-.showcase-image-shell {
+.showcase-image-shell,
+.concierge-portrait-frame {
   overflow: hidden;
   border-radius: 36px;
   box-shadow: var(--shadow-xl);
@@ -580,11 +691,6 @@ blockquote p,
   width: min(84%, 380px);
   margin-top: -74px;
   margin-left: auto;
-  padding: 22px 24px;
-}
-
-.services-content {
-  position: relative;
 }
 
 .luxury-service-list {
@@ -628,6 +734,11 @@ blockquote p,
     linear-gradient(180deg, #081524 0%, #0c1e31 100%);
 }
 
+.premium-concierge-grid {
+  grid-template-columns: 0.92fr 1.08fr;
+  align-items: center;
+}
+
 .light-title,
 .light-copy,
 .concierge-section .section-title-xl,
@@ -638,31 +749,39 @@ blockquote p,
   color: var(--white);
 }
 
-.concierge-grid {
-  grid-template-columns: 1.04fr 0.96fr;
-  align-items: start;
-}
-
-.concierge-rules-grid,
-.quote-side-notes {
-  display: grid;
-  gap: 16px;
-  margin-top: 24px;
-}
-
-.concierge-rules-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.rule-card,
-.side-note {
-  padding: 22px;
-}
-
 .rule-card span,
 .side-note span,
-.concierge-section .process-step-card p {
+.concierge-section .process-step-card p,
+.portrait-card span,
+.light-copy {
   color: rgba(255, 255, 255, 0.74);
+}
+
+.concierge-portrait-wrap {
+  position: relative;
+}
+
+.concierge-portrait-frame {
+  min-height: 720px;
+}
+
+.portrait-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 20, 38, 0.06), rgba(8, 20, 38, 0.3));
+}
+
+.portrait-card {
+  position: absolute;
+  left: -20px;
+  right: auto;
+  bottom: 26px;
+  width: min(76%, 360px);
+}
+
+.concierge-process-grid {
+  margin-top: 28px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .process-step-card {
@@ -670,7 +789,6 @@ blockquote p,
   grid-template-columns: 70px 1fr;
   gap: 16px;
   padding: 24px;
-  margin-bottom: 16px;
 }
 
 .process-step-card .step-number {
@@ -679,10 +797,6 @@ blockquote p,
 
 .quote-premium-section {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.88));
-}
-
-.quote-form-shell {
-  position: relative;
 }
 
 .lead-form {
@@ -801,11 +915,6 @@ blockquote p,
   transform: translateY(12px);
 }
 
-.premium-faq-list {
-  display: grid;
-  gap: 14px;
-}
-
 .premium-faq-item {
   padding: 26px;
   background: rgba(255, 255, 255, 0.82);
@@ -833,6 +942,7 @@ blockquote p,
   z-index: 90;
   min-height: 56px;
   padding-inline: 22px;
+  animation: soft-pulse 3.4s ease-in-out infinite;
 }
 
 .chat-panel {
@@ -840,7 +950,7 @@ blockquote p,
   right: 20px;
   bottom: 88px;
   z-index: 90;
-  width: min(400px, calc(100% - 24px));
+  width: min(410px, calc(100% - 24px));
   overflow: hidden;
   background: rgba(255, 255, 255, 0.86);
   backdrop-filter: blur(16px);
@@ -869,6 +979,36 @@ blockquote p,
   background: rgba(17, 37, 59, 0.06);
   color: var(--navy);
   font-size: 0.84rem;
+}
+
+.chat-subcopy {
+  margin: 8px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.chat-quick-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 18px 0;
+}
+
+.chat-quick-pill {
+  border: none;
+  border-radius: 999px;
+  min-height: 36px;
+  padding: 0 14px;
+  background: rgba(17, 37, 59, 0.06);
+  color: var(--navy);
+  cursor: pointer;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.chat-quick-pill:hover {
+  transform: translateY(-1px);
+  background: rgba(17, 37, 59, 0.1);
 }
 
 .chat-thread {
@@ -916,6 +1056,14 @@ blockquote p,
   animation-delay: 220ms;
 }
 
+.floating-soft {
+  animation: floating-soft 6.8s ease-in-out infinite;
+}
+
+.delayed-float {
+  animation-delay: 1.2s;
+}
+
 @keyframes reveal-up {
   from {
     opacity: 0;
@@ -924,6 +1072,26 @@ blockquote p,
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes floating-soft {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    box-shadow: 0 18px 40px rgba(200, 125, 66, 0.24);
+  }
+  50% {
+    box-shadow: 0 22px 54px rgba(200, 125, 66, 0.34);
   }
 }
 
@@ -940,6 +1108,7 @@ blockquote p,
 
 @media (max-width: 1120px) {
   .premium-hero-grid,
+  .signature-grid,
   .services-premium-grid,
   .concierge-grid,
   .quote-premium-grid,
@@ -950,7 +1119,17 @@ blockquote p,
   .footer-row,
   .cta-band-inner,
   .testimonial-luxury-grid,
-  .trust-metric-grid {
+  .trust-metric-grid,
+  .concierge-process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .signature-card-stack,
+  .concierge-rules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .premium-concierge-grid {
     grid-template-columns: 1fr;
   }
 
@@ -958,16 +1137,19 @@ blockquote p,
     min-height: unset;
   }
 
-  .hero-image-frame {
+  .hero-image-frame,
+  .concierge-portrait-frame {
     min-height: 620px;
   }
 
-  .floating-panel {
+  .floating-panel,
+  .portrait-card {
     position: relative;
     top: auto;
     left: auto;
     right: auto;
     bottom: auto;
+    width: auto;
     margin-top: 16px;
     max-width: none;
   }
@@ -997,7 +1179,7 @@ blockquote p,
   }
 
   .editorial-title {
-    max-width: 12ch;
+    max-width: 11.5ch;
     font-size: clamp(3rem, 12vw, 4.5rem);
   }
 
@@ -1006,7 +1188,6 @@ blockquote p,
   }
 
   .hero-stats-grid,
-  .concierge-rules-grid,
   .lead-form-grid {
     grid-template-columns: 1fr;
   }
@@ -1016,7 +1197,9 @@ blockquote p,
   .testimonial-luxury-card,
   .premium-faq-item,
   .process-step-card,
-  .luxury-service-card {
+  .luxury-service-card,
+  .signature-card,
+  .portrait-card {
     padding: 22px;
   }
 
@@ -1045,7 +1228,12 @@ blockquote p,
     bottom: 82px;
   }
 
-  .hero-image-frame {
+  .hero-image-frame,
+  .concierge-portrait-frame {
     min-height: 480px;
+  }
+
+  .luxury-rail {
+    border-radius: 28px;
   }
 }

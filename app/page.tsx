@@ -5,29 +5,14 @@ import { faqs, services, siteConfig, testimonials } from "@/lib/site";
 
 const heroStats = [
   { value: "Same-day", label: "response energy" },
-  { value: "3 ways", label: "to become a lead fast" },
+  { value: "3 paths", label: "to become a lead fast" },
   { value: "Private", label: "Jade website mode" },
 ];
 
 const proofPoints = [
   "Concierge-style lead handling",
-  "Fast quote path with photo-first intake",
-  "Professional presentation that feels premium before the call",
-];
-
-const processSteps = [
-  {
-    title: "The site makes a strong first impression",
-    body: "Cinematic visuals, editorial typography, and premium trust cues make the brand feel established and expensive.",
-  },
-  {
-    title: "Jade qualifies without getting weird",
-    body: "Website visitors can chat, ask questions, and move toward a quote without touching internal capabilities or policies they should never see.",
-  },
-  {
-    title: "Antoine and Anthony get cleaner handoffs",
-    body: "Every quote request arrives with better context, stronger intent signals, and fewer low-quality back-and-forths.",
-  },
+  "Photo-first estimate flow",
+  "Presentation that feels premium before the callback",
 ];
 
 const trustMetrics = [
@@ -37,9 +22,43 @@ const trustMetrics = [
   { value: "Human", label: "calm, polished tone" },
 ];
 
+const signaturePillars = [
+  {
+    title: "Luxury-level first impression",
+    body: "The brand feels expensive, organized, and competent before the conversation even starts.",
+  },
+  {
+    title: "Lead handling that feels concierge-driven",
+    body: "Jade qualifies the right details without turning the site into a clunky support desk.",
+  },
+  {
+    title: "Clean owner handoffs",
+    body: "Antoine and Anthony get stronger lead context and less back-and-forth noise.",
+  },
+];
+
+const processSteps = [
+  {
+    title: "The site creates confidence instantly",
+    body: "Cinematic visuals, polished typography, and controlled spacing make the service feel established and high-end.",
+  },
+  {
+    title: "Jade guides the next step without exposing internals",
+    body: "Visitors can ask questions, request help, and qualify their job without touching the real internal agent layer.",
+  },
+  {
+    title: "The team gets cleaner, better-context leads",
+    body: "Faster callbacks, stronger intent signals, better photo requests, and fewer messy dead-end threads.",
+  },
+];
+
+const luxuryRail = ["Residential", "Commercial", "Property turnover", "Estate cleanouts", "Same-day jobs", "Photo estimates"];
+
 export default function HomePage() {
   return (
     <main className="page-shell">
+      <div className="grain-overlay" />
+
       <header className="site-header">
         <div className="container header-row">
           <div className="brand-lockup">
@@ -64,20 +83,21 @@ export default function HomePage() {
       <section className="hero-section">
         <div className="hero-ambient hero-ambient-left" />
         <div className="hero-ambient hero-ambient-right" />
+        <div className="hero-ambient hero-ambient-center" />
 
         <div className="container hero-grid premium-hero-grid">
           <div className="hero-copy-column reveal-up">
             <div className="hero-chip-row">
               <span className="hero-chip">DMV premium junk removal</span>
-              <span className="hero-chip muted-chip">Powered by private concierge routing</span>
+              <span className="hero-chip muted-chip">Private concierge routing</span>
             </div>
 
-            <p className="eyebrow">Fast, polished, ridiculously easy to book</p>
+            <p className="eyebrow">Fast, elevated, unmistakably premium</p>
             <h2 className="hero-title editorial-title">
-              Junk removal that looks expensive, feels effortless, and converts like crazy.
+              The junk removal site that looks like a luxury brand and converts like a killer sales machine.
             </h2>
             <p className="hero-copy hero-copy-premium">
-              Haul Time now feels like the high-end option before anyone even picks up the phone. Clean intake, fast callbacks, premium visuals, and Jade qualifying leads without ever exposing the real internal agent layer.
+              Haul Time now feels like the high-end choice before anyone even picks up the phone. Strong visuals, better lead flow, faster quote intent, and Jade guiding the conversation like a private concierge instead of a cheap little widget.
             </p>
 
             <div className="cta-row hero-cta-row">
@@ -100,7 +120,7 @@ export default function HomePage() {
 
             <div className="hero-stats-grid">
               {heroStats.map((stat) => (
-                <article key={stat.label} className="hero-stat-card glass-card">
+                <article key={stat.label} className="hero-stat-card glass-card hover-float-card">
                   <strong>{stat.value}</strong>
                   <span>{stat.label}</span>
                 </article>
@@ -109,7 +129,7 @@ export default function HomePage() {
           </div>
 
           <div className="hero-visual-stack reveal-up delayed">
-            <div className="hero-image-frame">
+            <div className="hero-image-frame image-hover-frame">
               <Image
                 src="/ai/hero-truck.jpg"
                 alt="Premium Haul Time junk removal truck at an upscale residential property"
@@ -121,19 +141,27 @@ export default function HomePage() {
               <div className="hero-image-overlay" />
             </div>
 
-            <div className="floating-panel top-panel glass-card">
+            <div className="floating-panel top-panel glass-card floating-soft">
               <p className="floating-label">Jade, website concierge</p>
               <strong>Qualifies leads, answers FAQs, protects the brand.</strong>
               <span>Private website mode only, no exposed internals.</span>
             </div>
 
-            <div className="floating-panel bottom-panel solid-panel">
+            <div className="floating-panel bottom-panel solid-panel floating-soft delayed-float">
               <div>
                 <p className="floating-label">Best lead paths</p>
                 <strong>Call, quote, or chat in under a minute.</strong>
               </div>
               <span className="inline-badge">Photo-first estimate flow</span>
             </div>
+          </div>
+        </div>
+
+        <div className="container luxury-rail-wrap reveal-up delayed-2">
+          <div className="luxury-rail">
+            {luxuryRail.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
           </div>
         </div>
       </section>
@@ -149,13 +177,34 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="section signature-section">
+        <div className="container signature-grid">
+          <div className="section-intro reveal-up">
+            <p className="eyebrow">The premium difference</p>
+            <h2 className="section-title-xl">This now feels like a serious operator, not a random local service page trying too hard.</h2>
+            <p className="section-copy-lg">
+              The whole structure is built to do three things at once: make Haul Time feel expensive, make the next step obvious, and help the team spend more time on real buyers instead of sloppy intake.
+            </p>
+          </div>
+
+          <div className="signature-card-stack reveal-up delayed">
+            {signaturePillars.map((pillar) => (
+              <article key={pillar.title} className="signature-card glass-card hover-float-card">
+                <h3>{pillar.title}</h3>
+                <p>{pillar.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="section editorial-section">
         <div className="container editorial-grid">
           <div className="section-intro reveal-up">
             <p className="eyebrow">Why this feels different</p>
-            <h2 className="section-title-xl">This no longer looks like a local service site. It looks like a premium operator with standards.</h2>
+            <h2 className="section-title-xl">It looks curated, cinematic, and more expensive than competitors before the first callback ever happens.</h2>
             <p className="section-copy-lg">
-              The job is not just getting a click. The job is making the brand feel trustworthy, modern, fast, and more expensive than the noisy alternatives. That changes conversion quality.
+              That matters. Perception changes lead quality. Stronger visual hierarchy, cleaner spacing, and better sequencing make visitors assume the service itself is tighter and more trustworthy.
             </p>
           </div>
 
@@ -171,15 +220,15 @@ export default function HomePage() {
         </div>
 
         <div className="container feature-mosaic">
-          <article className="mosaic-card mosaic-copy-card reveal-up">
+          <article className="mosaic-card mosaic-copy-card reveal-up hover-float-card">
             <p className="eyebrow">Residential</p>
-            <h3>Upscale-home visuals that make the service feel trustworthy and organized.</h3>
+            <h3>Upscale-home visuals that make the service feel trustworthy, calm, and organized.</h3>
             <p>
-              For homeowners, the site should feel calm, premium, and competent. No stress, no mess, just a clean path to getting the job handled.
+              For homeowners, the site should feel like the smart, polished option. No chaos, no stress, just a clean path to getting the job handled fast.
             </p>
           </article>
 
-          <article className="mosaic-card mosaic-image-card reveal-up delayed">
+          <article className="mosaic-card mosaic-image-card reveal-up delayed image-hover-frame">
             <Image
               src="/ai/residential-team.png"
               alt="Haul Time crew handling a residential removal with polished service presentation"
@@ -189,7 +238,7 @@ export default function HomePage() {
             />
           </article>
 
-          <article className="mosaic-card mosaic-image-card reveal-up delayed-2">
+          <article className="mosaic-card mosaic-image-card reveal-up delayed-2 image-hover-frame">
             <Image
               src="/ai/commercial-office.jpg"
               alt="Commercial office cleanout presented with premium operational style"
@@ -199,11 +248,11 @@ export default function HomePage() {
             />
           </article>
 
-          <article className="mosaic-card mosaic-copy-card deep-card reveal-up delayed-2">
+          <article className="mosaic-card mosaic-copy-card deep-card reveal-up delayed-2 hover-float-card">
             <p className="eyebrow light-eyebrow">Commercial</p>
-            <h3>Commercial cleanout positioning that feels polished enough for serious property and office work.</h3>
+            <h3>Commercial cleanout positioning polished enough for offices, property managers, and time-sensitive work.</h3>
             <p>
-              The visual system now signals that Haul Time can handle property managers, estate situations, commercial spaces, and time-sensitive jobs without looking cheap.
+              The visual system now signals that Haul Time can handle serious spaces, not just small household pickups, and that changes how buyers judge the brand.
             </p>
           </article>
         </div>
@@ -212,7 +261,7 @@ export default function HomePage() {
       <section className="section services-premium-section">
         <div className="container services-premium-grid">
           <div className="services-showcase reveal-up">
-            <div className="showcase-image-shell">
+            <div className="showcase-image-shell image-hover-frame">
               <Image
                 src="/ai/transformation.png"
                 alt="Aspirational transformation scene showing clean, open space after junk removal"
@@ -221,7 +270,7 @@ export default function HomePage() {
                 className="showcase-image"
               />
             </div>
-            <div className="showcase-caption glass-card">
+            <div className="showcase-caption glass-card floating-soft">
               <p className="eyebrow">The transformation pitch</p>
               <strong>Sell the outcome, not just the haul-away.</strong>
               <span>More space. Less stress. Faster response. Premium handling.</span>
@@ -237,7 +286,7 @@ export default function HomePage() {
 
             <div className="luxury-service-list">
               {services.map((service, index) => (
-                <article key={service.title} className={`luxury-service-card ${index === 1 ? "featured-service" : ""}`}>
+                <article key={service.title} className={`luxury-service-card hover-float-card ${index === 1 ? "featured-service" : ""}`}>
                   <div className="service-index">0{index + 1}</div>
                   <div>
                     <h3>{service.title}</h3>
@@ -251,7 +300,7 @@ export default function HomePage() {
       </section>
 
       <section className="section concierge-section">
-        <div className="container concierge-grid">
+        <div className="container concierge-grid premium-concierge-grid">
           <div className="concierge-copy reveal-up">
             <p className="eyebrow light-eyebrow">Meet Jade</p>
             <h2 className="section-title-xl light-title">A premium website concierge, not a toy chatbot bolted into the corner.</h2>
@@ -260,28 +309,46 @@ export default function HomePage() {
             </p>
 
             <div className="concierge-rules-grid">
-              <div className="rule-card glass-card">
+              <div className="rule-card glass-card hover-float-card">
                 <strong>Allowed</strong>
                 <span>FAQs, lead capture, quote qualification, callback requests, hot-lead escalation</span>
               </div>
-              <div className="rule-card glass-card">
+              <div className="rule-card glass-card hover-float-card">
                 <strong>Blocked</strong>
                 <span>Prompt leakage, tool access, policy improvising, unsafe booking claims, system nonsense</span>
               </div>
             </div>
           </div>
 
-          <div className="concierge-process reveal-up delayed">
-            {processSteps.map((step, index) => (
-              <article key={step.title} className="process-step-card glass-card">
-                <span className="step-number">0{index + 1}</span>
-                <div>
-                  <h3>{step.title}</h3>
-                  <p>{step.body}</p>
-                </div>
-              </article>
-            ))}
+          <div className="concierge-portrait-wrap reveal-up delayed">
+            <div className="concierge-portrait-frame image-hover-frame">
+              <Image
+                src="/ai/jade-concierge.png"
+                alt="Jade concierge portrait for Haul Time website"
+                width={1024}
+                height={1536}
+                className="concierge-portrait"
+              />
+              <div className="portrait-overlay" />
+            </div>
+            <div className="portrait-card glass-card floating-soft">
+              <p className="floating-label">Private website mode</p>
+              <strong>Luxury service energy, strict operational boundaries.</strong>
+              <span>She qualifies, guides, captures, and escalates. Nothing sloppy.</span>
+            </div>
           </div>
+        </div>
+
+        <div className="container concierge-process-grid reveal-up delayed-2">
+          {processSteps.map((step, index) => (
+            <article key={step.title} className="process-step-card glass-card hover-float-card">
+              <span className="step-number">0{index + 1}</span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -294,11 +361,11 @@ export default function HomePage() {
               This intake captures the details that actually matter for junk removal: location, timing, scope, volume, and access conditions. Better inputs mean faster follow-up and fewer wasted touches.
             </p>
             <div className="quote-side-notes">
-              <div className="side-note glass-card">
+              <div className="side-note glass-card hover-float-card">
                 <strong>Fastest estimate path</strong>
                 <span>{siteConfig.textPhotoCta}</span>
               </div>
-              <div className="side-note glass-card">
+              <div className="side-note glass-card hover-float-card">
                 <strong>Service area</strong>
                 <span>{siteConfig.serviceAreas}</span>
               </div>
@@ -321,7 +388,7 @@ export default function HomePage() {
 
         <div className="container testimonial-luxury-grid">
           {testimonials.map((testimonial, index) => (
-            <blockquote key={testimonial.quote} className={`testimonial-luxury-card tier-${index + 1}`}>
+            <blockquote key={testimonial.quote} className={`testimonial-luxury-card hover-float-card tier-${index + 1}`}>
               <p>“{testimonial.quote}”</p>
               <footer>{testimonial.author}</footer>
             </blockquote>
@@ -338,7 +405,7 @@ export default function HomePage() {
 
           <div className="faq-list premium-faq-list reveal-up delayed">
             {faqs.map((faq) => (
-              <article key={faq.question} className="faq-item premium-faq-item">
+              <article key={faq.question} className="faq-item premium-faq-item hover-float-card">
                 <h3>{faq.question}</h3>
                 <p>{faq.answer}</p>
               </article>
