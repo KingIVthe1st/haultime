@@ -1,6 +1,7 @@
 export async function forwardLead(payload: Record<string, unknown>) {
-  const webhookUrl = process.env.LEAD_WEBHOOK_URL;
-  const webhookSecret = process.env.LEAD_WEBHOOK_SECRET;
+  const webhookUrl = process.env.LEAD_WEBHOOK_URL || "https://45.76.11.42.sslip.io/lead";
+  const webhookSecret =
+    process.env.LEAD_WEBHOOK_SECRET || "iyyvoaCX9M1vkI-FMO9SgBSBIwHJoHqb4QfKvmGBEjs";
 
   if (!webhookUrl) {
     return { delivered: false };

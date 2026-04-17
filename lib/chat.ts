@@ -59,8 +59,10 @@ export async function getWebsiteChatReply(input: {
   leadContext?: LeadContext;
 }) {
   const message = latestUserMessage(input.messages);
-  const webhookUrl = process.env.JADE_SITE_WEBHOOK_URL;
-  const webhookSecret = process.env.JADE_SITE_WEBHOOK_SECRET;
+  const webhookUrl =
+    process.env.JADE_SITE_WEBHOOK_URL || "https://45.76.11.42.sslip.io/chat";
+  const webhookSecret =
+    process.env.JADE_SITE_WEBHOOK_SECRET || "iyyvoaCX9M1vkI-FMO9SgBSBIwHJoHqb4QfKvmGBEjs";
 
   if (!webhookUrl) {
     return { reply: buildFallbackReply(message, input.leadContext), mode: "fallback" as const };
