@@ -940,9 +940,45 @@ blockquote p,
   right: 22px;
   bottom: 20px;
   z-index: 90;
-  min-height: 56px;
-  padding-inline: 22px;
+  min-height: 70px;
+  min-width: 280px;
+  padding: 10px 14px 10px 10px;
+  gap: 12px;
+  border-radius: 999px;
   animation: soft-pulse 3.4s ease-in-out infinite;
+}
+
+.chat-launcher-avatar {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.32);
+  box-shadow: 0 10px 24px rgba(8, 20, 38, 0.18);
+}
+
+.chat-launcher-avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chat-launcher-copy {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+}
+
+.chat-launcher-copy strong {
+  color: var(--white);
+  font-size: 0.98rem;
+}
+
+.chat-launcher-copy span {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.8rem;
+  line-height: 1.35;
 }
 
 .chat-panel {
@@ -1219,6 +1255,7 @@ blockquote p,
     right: 12px;
     bottom: 14px;
     width: auto;
+    min-width: 0;
   }
 
   .chat-panel {

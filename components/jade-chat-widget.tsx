@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import { siteConfig } from "@/lib/site";
 
@@ -55,7 +56,13 @@ export function JadeChatWidget() {
   return (
     <>
       <button className="chat-launcher" onClick={() => setOpen((current) => !current)}>
-        {open ? "Close chat" : "Chat with Jade"}
+        <span className="chat-launcher-avatar">
+          <Image src="/ai/jade-concierge.png" alt="Jade" width={48} height={48} className="chat-launcher-avatar-image" />
+        </span>
+        <span className="chat-launcher-copy">
+          <strong>{open ? "Close Jade" : "Chat with Jade"}</strong>
+          <span>{open ? "Back to the page" : "Fast quote help, photo prompts, smart intake"}</span>
+        </span>
       </button>
 
       {open ? (
