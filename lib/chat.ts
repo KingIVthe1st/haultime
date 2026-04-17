@@ -75,37 +75,42 @@ export async function getWebsiteChatReply(input: {
     return { reply: buildFallbackReply(message, input.leadContext), mode: "fallback" as const };
   }
 
-  const response = await fetch(webhookUrl, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      ...(webhookSecret ? { authorization: `Bearer ${webhookSecret}` } : {}),
-    },
-    body: JSON.stringify({
-      mode: "website-lead-intake",
-      sessionId: input.sessionId,
-      constraints: {
-        allowFaq: true,
-        allowLeadCapture: true,
-        allowCallbackRequest: true,
-        allowQuoteQualification: true,
-        allowFinalPricing: false,
-        allowBookingConfirmation: false,
-        toolScope: ["faq", "lead_capture", "escalation", "owner_notify"],
+  try {
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        ...(webhookSecret ? { authorization: `Bearer ${webhookSecret}` } : {}),
       },
-      messages: input.messages,
-      leadContext: input.leadContext,
-    }),
-    cache: "no-store",
-  });
+      body: JSON.stringify({
+        mode: "website-lead-intake",
+        sessionId: input.sessionId,
+        constraints: {
+          allowFaq: true,
+          allowLeadCapture: true,
+          allowCallbackRequest: true,
+          allowQuoteQualification: true,
+          allowFinalPricing: false,
+          allowBookingConfirmation: false,
+          toolScope: ["faq", "lead_capture", "escalation", "owner_notify"],
+        },
+        messages: input.messages,
+        leadContext: input.leadContext,
+      }),
+      cache: "no-store",
+      signal: AbortSignal.timeout(8_000),
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      return { reply: buildFallbackReply(message, input.leadContext), mode: "fallback" as const };
+    }
+
+    const data = (await response.json()) as { reply?: string };
+    return {
+      reply: data.reply?.slice(0, 1200) || buildFallbackReply(message, input.leadContext),
+      mode: "webhook" as const,
+    };
+  } catch {
     return { reply: buildFallbackReply(message, input.leadContext), mode: "fallback" as const };
   }
-
-  const data = (await response.json()) as { reply?: string };
-  return {
-    reply: data.reply?.slice(0, 1200) || buildFallbackReply(message, input.leadContext),
-    mode: "webhook" as const,
-  };
 }

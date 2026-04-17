@@ -13,18 +13,27 @@ export async function forwardLead(payload: Record<string, unknown>) {
     "";
 
   if (!webhookUrl) {
-    return { delivered: false };
+    return { delivered: false, reason: "missing-webhook-url" as const };
   }
 
-  const response = await fetch(webhookUrl, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      ...(webhookSecret ? { authorization: `Bearer ${webhookSecret}` } : {}),
-    },
-    body: JSON.stringify(payload),
-    cache: "no-store",
-  });
+  try {
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        ...(webhookSecret ? { authorization: `Bearer ${webhookSecret}` } : {}),
+      },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+      signal: AbortSignal.timeout(8_000),
+    });
 
-  return { delivered: response.ok };
+    return {
+      delivered: response.ok,
+      reason: response.ok ? undefined : ("webhook-error" as const),
+      status: response.status,
+    };
+  } catch {
+    return { delivered: false, reason: "network-error" as const };
+  }
 }

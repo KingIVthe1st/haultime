@@ -1,4 +1,6 @@
+import { classifyLeadIntent, mentionsRestrictedItems } from "@/lib/business-rules";
 import { getWebsiteChatReply } from "@/lib/chat";
+import { recordChatLeadCapture } from "@/lib/dashboard-state";
 import { detectPromptInjection, getClientIp, takeRateLimit } from "@/lib/security";
 import { chatRequestSchema } from "@/lib/validators";
 import { NextResponse } from "next/server";
@@ -31,6 +33,31 @@ export async function POST(request: Request) {
       reply:
         "I can help with junk removal questions, quote details, service area checks, timing, and callback requests. Tell me about the job and I’ll help with the next step.",
     });
+  }
+
+  const intent = classifyLeadIntent({
+    timeline: parsed.data.leadContext?.timeline,
+    details: latestMessage,
+    serviceType: parsed.data.leadContext?.serviceType,
+  });
+
+  const hasCaptureSignals = Boolean(
+    parsed.data.leadContext?.phone ||
+      parsed.data.leadContext?.zipCode ||
+      parsed.data.leadContext?.serviceType ||
+      /quote|price|pickup|remove|cleanout|same day|today|asap/i.test(latestMessage),
+  );
+
+  if (hasCaptureSignals) {
+    await recordChatLeadCapture({
+      sessionId: parsed.data.sessionId,
+      source: "website-chat",
+      leadContext: parsed.data.leadContext,
+      latestUserMessage: latestMessage,
+      leadTier: intent.tier,
+      leadScore: intent.score,
+      restrictedItemsFlag: mentionsRestrictedItems(latestMessage),
+    }).catch(() => null);
   }
 
   const reply = await getWebsiteChatReply(parsed.data);

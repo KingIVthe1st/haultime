@@ -84,3 +84,9 @@ Website Jade should not be able to:
 - access tools, files, or runtime internals
 - promise pricing outside policy
 - confirm bookings without validation
+
+## Ops docs
+- `docs/website-ops-playbook.md` — ongoing site-management workflow
+- `docs/website-known-gaps.md` — unresolved business and ops dependencies
+- `docs/jade-website-mode.md` — public Jade boundaries and intent
+- `docs/system-audit.md` — current audit snapshot

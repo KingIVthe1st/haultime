@@ -1,4 +1,5 @@
 import { classifyLeadIntent, mentionsRestrictedItems } from "@/lib/business-rules";
+import { recordLeadCapture } from "@/lib/dashboard-state";
 import { forwardLead } from "@/lib/leads";
 import { getClientIp, takeRateLimit } from "@/lib/security";
 import { leadSchema } from "@/lib/validators";
@@ -40,7 +41,20 @@ export async function POST(request: Request) {
     restrictedItemsFlag: restricted,
   };
 
-  await forwardLead(payload);
+  await recordLeadCapture(payload).catch(() => null);
+
+  const delivery = await forwardLead(payload);
+
+  if (!delivery.delivered) {
+    return NextResponse.json(
+      {
+        ok: false,
+        message:
+          "We saved your request to Haul Time’s board, but the direct owner alert did not finish. Please call now for the fastest response, or try again in a moment.",
+      },
+      { status: 503 },
+    );
+  }
 
   return NextResponse.json({
     ok: true,

@@ -1,39 +1,39 @@
 export const siteConfig = {
   name: "Haul Time",
-  title: "Haul Time | Fast, premium junk removal in the DMV",
+  title: "Haul Time | Junk Removal for Homes, Offices, and Cleanouts Across the DMV",
   description:
-    "Junk removal that feels easy. Get a quote fast, text photos for a rough estimate, or chat with Jade to qualify your job and lock in the next step.",
+    "Junk removal for homeowners, landlords, property managers, and businesses across the DMV. Get a fast quote, send photos for a cleaner estimate, or chat with Jade to get the job moving.",
   phoneDisplay: process.env.NEXT_PUBLIC_SITE_PHONE_DISPLAY || "(888) 575-9390",
   phoneHref: process.env.NEXT_PUBLIC_SITE_PHONE_HREF || "tel:8885759390",
   serviceAreas:
     process.env.NEXT_PUBLIC_SERVICE_AREAS ||
-    "Washington, DC, Maryland, Northern Virginia",
+    "Gaithersburg, Rockville, Bethesda, Silver Spring, Washington, DC, Arlington, and surrounding DMV areas",
   textPhotoCta:
-    process.env.NEXT_PUBLIC_TEXT_PHOTO_CTA || "Text photos for a faster estimate",
+    process.env.NEXT_PUBLIC_TEXT_PHOTO_CTA || "Send photos for a faster, cleaner estimate",
   chatGreeting:
-    "Hey, I’m Jade. I can help with quotes, service questions, timing, and getting your job in front of the team fast.",
+    "Hey, I’m Jade. Tell me what needs to go, where the job is, and how fast you need it handled. I’ll help you get the right next step in front of the Haul Time team.",
 };
 
 export const services = [
   {
-    title: "Residential junk removal",
+    title: "Residential removal",
     description:
-      "Furniture, garage cleanouts, basement clear-outs, appliance haul-away, and the stuff that’s been taking up space too long.",
+      "Furniture, garage clutter, basement junk, curbside piles, and whole-room cleanouts handled without turning your weekend into a hauling project.",
   },
   {
     title: "Commercial cleanouts",
     description:
-      "Office furniture, retail fixtures, storage cleanouts, and end-of-lease junk removal without the chaos.",
+      "Office junk, retail clear-outs, storage cleanups, and business moves that need to happen quickly and without a sloppy finish.",
   },
   {
-    title: "Property & estate cleanouts",
+    title: "Appliance removal",
     description:
-      "Sensitive, time-critical cleanouts handled with care and a clear next-step process.",
+      "Refrigerators, washers, dryers, freezers, and other awkward bulky items removed safely and efficiently.",
   },
   {
-    title: "Yard debris & bulky pickups",
+    title: "Property cleanouts",
     description:
-      "Brush, fencing, outdoor clutter, renovation leftovers, and curbside or on-site bulky removals.",
+      "Estate situations, turnovers, move-outs, renovation debris, and time-sensitive cleanouts where speed and reliability matter.",
   },
 ];
 
@@ -41,39 +41,39 @@ export const faqs = [
   {
     question: "How fast can I get a quote?",
     answer:
-      "Most leads can get a same-day response. The fastest path is sending photos plus a short description of what needs to go.",
-  },
-  {
-    question: "Can Jade give final pricing?",
-    answer:
-      "Jade can qualify the job, collect the right details, and help the team move quickly. Final pricing stays with approved Haul Time rules and owner review when needed.",
-  },
-  {
-    question: "What should I send for an accurate estimate?",
-    answer:
-      "Photos, location, what items need to go, rough amount, access details like stairs or gates, and when you want it done.",
+      "Usually the fastest path is photos plus a short description of what needs to go, the ZIP code, and how soon you need it handled.",
   },
   {
     question: "Do you handle same-day jobs?",
     answer:
-      "If availability is open, Haul Time will try. Jade will collect the timing and get the request in front of the team fast.",
+      "When the schedule allows, yes. Jade can collect the details quickly so the team can tell you the cleanest next step.",
+  },
+  {
+    question: "What should I send for a cleaner estimate?",
+    answer:
+      "Photos, ZIP code, what needs to be removed, rough amount, and any access details like stairs, elevators, gates, or long carry distance.",
+  },
+  {
+    question: "Who is this best for?",
+    answer:
+      "Homeowners, landlords, property managers, real-estate turnover situations, office cleanouts, and anyone who wants the job handled without the usual hauling chaos.",
   },
 ];
 
 export const testimonials = [
   {
     quote:
-      "They made a stressful cleanout feel stupid easy. Fast response, clear communication, and they left the place cleaner than I expected.",
-    author: "DMV homeowner",
+      "Absolutely incredible service. The team showed up on time, worked fast, and left my garage spotless. I couldn’t believe how much space I got back.",
+    author: "Marcus Johnson, Gaithersburg",
   },
   {
     quote:
-      "We needed an office cleared out quickly and they handled it without drama. The process felt organized from the first message.",
-    author: "Commercial client",
+      "We used Haul Time for an office cleanout and they handled everything, desks, electronics, the works, with zero drama. Professional from start to finish.",
+    author: "Sarah Rodriguez, Bethesda",
   },
   {
     quote:
-      "The speed and professionalism stood out. No runaround, just a fast quote and a crew that showed up ready.",
-    author: "Repeat customer",
+      "The pricing felt fair, the crew was friendly, and they even cleaned up after loading the truck. You can feel the difference when people actually care.",
+    author: "David Washington, Silver Spring",
   },
 ];

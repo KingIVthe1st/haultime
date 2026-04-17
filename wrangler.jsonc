@@ -8,6 +8,20 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "HAULTIME_STATE",
+        "class_name": "HaulTimeStateDO"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["HaulTimeStateDO"]
+    }
+  ],
   "observability": {
     "enabled": true
   }
