@@ -1,5 +1,6 @@
 import { mentionsRestrictedItems } from "@/lib/business-rules";
 import { detectPromptInjection } from "@/lib/security";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
@@ -59,10 +60,16 @@ export async function getWebsiteChatReply(input: {
   leadContext?: LeadContext;
 }) {
   const message = latestUserMessage(input.messages);
+  const cloudflareContext = await getCloudflareContext({ async: true }).catch(() => null);
+  const cfEnv = cloudflareContext?.env as Record<string, string | undefined> | undefined;
   const webhookUrl =
-    process.env.JADE_SITE_WEBHOOK_URL || "https://45.76.11.42.sslip.io/chat";
+    process.env.JADE_SITE_WEBHOOK_URL ||
+    cfEnv?.JADE_SITE_WEBHOOK_URL ||
+    "https://45.76.11.42.sslip.io/chat";
   const webhookSecret =
-    process.env.JADE_SITE_WEBHOOK_SECRET || "iyyvoaCX9M1vkI-FMO9SgBSBIwHJoHqb4QfKvmGBEjs";
+    process.env.JADE_SITE_WEBHOOK_SECRET ||
+    cfEnv?.JADE_SITE_WEBHOOK_SECRET ||
+    "";
 
   if (!webhookUrl) {
     return { reply: buildFallbackReply(message, input.leadContext), mode: "fallback" as const };

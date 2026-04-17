@@ -54,6 +54,12 @@ const processSteps = [
 
 const luxuryRail = ["Residential", "Commercial", "Property turnover", "Estate cleanouts", "Same-day jobs", "Photo estimates"];
 
+const communityHighlights = [
+  "Premium presentation with real-world warmth",
+  "Family-home trust cues instead of generic stock-site energy",
+  "Diverse creative that feels more believable and current",
+];
+
 export default function HomePage() {
   return (
     <main className="page-shell">
@@ -194,6 +200,36 @@ export default function HomePage() {
                 <p>{pillar.body}</p>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section community-section">
+        <div className="container community-grid">
+          <div className="community-image-shell image-hover-frame reveal-up">
+            <Image
+              src="/ai/community-family.jpg"
+              alt="African American family and homeowner context for premium Haul Time service"
+              width={1536}
+              height={1024}
+              className="community-image"
+            />
+          </div>
+
+          <div className="community-copy reveal-up delayed">
+            <p className="eyebrow">Real people, premium energy</p>
+            <h2 className="section-title-xl">The brand should feel polished without losing warmth, humanity, or cultural reality.</h2>
+            <p className="section-copy-lg">
+              This pass adds more believable, more modern visual storytelling. It still feels elevated, but it also feels closer to the people actually hiring the service and trusting the crew at their home or property.
+            </p>
+            <div className="community-highlight-list">
+              {communityHighlights.map((item) => (
+                <div key={item} className="community-highlight glass-card hover-float-card">
+                  <span className="proof-dot" />
+                  <strong>{item}</strong>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -374,6 +410,27 @@ export default function HomePage() {
 
           <div className="quote-form-shell reveal-up delayed">
             <LeadForm />
+          </div>
+        </div>
+      </section>
+
+      <section className="section crew-proof-section">
+        <div className="container crew-proof-grid">
+          <div className="crew-proof-copy reveal-up">
+            <p className="eyebrow">Crew presence</p>
+            <h2 className="section-title-xl">Even the crew visuals should make people assume the service is more buttoned-up than everyone else.</h2>
+            <p className="section-copy-lg">
+              Strong service brands do not just sell the outcome. They sell who is showing up, how they carry themselves, and whether the customer feels safe trusting them with the space.
+            </p>
+          </div>
+          <div className="crew-proof-image-shell image-hover-frame reveal-up delayed">
+            <Image
+              src="/ai/diverse-crew.jpg"
+              alt="Diverse Haul Time crew with premium professional presentation"
+              width={1536}
+              height={1024}
+              className="crew-proof-image"
+            />
           </div>
         </div>
       </section>
