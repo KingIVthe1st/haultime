@@ -1,3 +1,4 @@
+import { mentionsRestrictedItems } from "@/lib/business-rules";
 import { detectPromptInjection } from "@/lib/security";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
@@ -19,6 +20,10 @@ function buildFallbackReply(message: string, leadContext?: LeadContext) {
 
   if (detectPromptInjection(message)) {
     return "I can help with junk removal questions, quote details, service areas, timing, and getting your request in front of the Haul Time team. Tell me what needs to be removed and where the job is located.";
+  }
+
+  if (mentionsRestrictedItems(message)) {
+    return "That may involve items that need owner review before anything is promised. Tell me the ZIP code, what the items are, and the best callback number, and I’ll help get this flagged correctly for the team.";
   }
 
   if (lower.includes("price") || lower.includes("cost") || lower.includes("quote")) {

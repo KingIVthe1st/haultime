@@ -1,0 +1,42 @@
+name: Deploy Haul Time to Cloudflare
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    env:
+      NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
+      NEXT_PUBLIC_SITE_PHONE_DISPLAY: ${{ vars.NEXT_PUBLIC_SITE_PHONE_DISPLAY }}
+      NEXT_PUBLIC_SITE_PHONE_HREF: ${{ vars.NEXT_PUBLIC_SITE_PHONE_HREF }}
+      NEXT_PUBLIC_SERVICE_AREAS: ${{ vars.NEXT_PUBLIC_SERVICE_AREAS }}
+      NEXT_PUBLIC_TEXT_PHOTO_CTA: ${{ vars.NEXT_PUBLIC_TEXT_PHOTO_CTA }}
+      LEAD_WEBHOOK_URL: ${{ secrets.LEAD_WEBHOOK_URL }}
+      LEAD_WEBHOOK_SECRET: ${{ secrets.LEAD_WEBHOOK_SECRET }}
+      JADE_SITE_WEBHOOK_URL: ${{ secrets.JADE_SITE_WEBHOOK_URL }}
+      JADE_SITE_WEBHOOK_SECRET: ${{ secrets.JADE_SITE_WEBHOOK_SECRET }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and deploy to Cloudflare
+        run: npm run deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

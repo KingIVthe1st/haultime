@@ -1,3 +1,4 @@
+import { classifyLeadIntent, mentionsRestrictedItems } from "@/lib/business-rules";
 import { forwardLead } from "@/lib/leads";
 import { getClientIp, takeRateLimit } from "@/lib/security";
 import { leadSchema } from "@/lib/validators";
@@ -22,11 +23,21 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, message: "Thanks, we’ve got your request." });
   }
 
+  const intent = classifyLeadIntent({
+    timeline: parsed.data.timeline,
+    details: parsed.data.details,
+    serviceType: parsed.data.serviceType,
+  });
+  const restricted = mentionsRestrictedItems(parsed.data.details);
+
   const payload = {
     ...parsed.data,
     receivedAt: new Date().toISOString(),
     channel: "website",
     ip,
+    leadTier: intent.tier,
+    leadScore: intent.score,
+    restrictedItemsFlag: restricted,
   };
 
   await forwardLead(payload);
